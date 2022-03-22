@@ -3,8 +3,9 @@ pages << {
     method: "GET",
     force_fetch: true,
     headers: {
-        "accept" => "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "accept-encoding" => "gzip, deflate, br",
+        # "accept" => "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        # "accept-encoding" => "gzip, deflate, br",
+        "User-Agent" => "Mozilla/5.0 (X11; Linux x86_64; rv:98.0) Gecko/20100101 Firefox/98.0",
         "sec-ch-ua" => '"Not A;Brand";v="99", "Chromium";v="99", "Google Chrome";v="99"',
         "sec-ch-ua-mobile" => "?0",
         "sec-ch-ua-full-version-list" => 'Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.4844.51", "Google Chrome";v="99.0.4844.51"',
