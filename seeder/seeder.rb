@@ -20,5 +20,8 @@ pages << {
     display: {
         "width": 1280,
         "height": 695
+    },
+    vars: { 
+        page_number: 1
     }
 }

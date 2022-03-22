@@ -1,4 +1,5 @@
 html = Nokogiri.HTML(content)
+vars = page['vars']
 
 positions = html.css('div.row-container')
 
@@ -9,9 +10,20 @@ positions.each do |position|
 
     pages << { 
         url: url,
-        page_type: 'job_detail',
+        page_type: "job_detail",
         vars: { 
-            'title' => title
+            title: title
         }
-     }
+    }
 end
+
+# next_page = html.at_css('ul.pager li.next a')
+# if next_page
+# 	url_next = "https://www.manpower.ca#{URI.encode(next_page["href"])}"
+# 	pages << 	{
+# 		page_type: "job_list",
+# 		url: url_next,
+# 		vars: {
+# 		},
+# 	}
+# end
