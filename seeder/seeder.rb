@@ -22,6 +22,10 @@ pages << {
         "height": 695
     },
     vars: { 
-        page_number: 1
+        page_number: 4
+    },
+    driver: { 
+        "name": "scraping manpower_can",
+        "stealth": true,  
     }
 }
