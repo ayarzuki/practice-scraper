@@ -17,12 +17,12 @@ pages << {
         "content-type" => "text/html; charset=UTF-8",
     },
     url: "https://www.manpower.ca/ManpowerCanada/search-jobs?txtJobType=&txtLocation=&txtLatitude=&txtLongitude=&source=",
-    display: {
-        "width": 1280,
-        "height": 695
-    },
+    # display: {
+    #     "width": 1280,
+    #     "height": 695
+    # },
     vars: { 
-        page_number: 4
+        page_number: 11
     },
     driver: { 
         "name": "scraping manpower_can",

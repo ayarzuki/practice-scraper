@@ -9,4 +9,4 @@ parsers:
 
   - file: ./parsers/job_detail.rb
     page_type: job_detail
-    disabled: true
+    disabled: false

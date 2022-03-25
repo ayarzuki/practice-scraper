@@ -64,7 +64,7 @@ pages << {
 # or all at once
 # if page_number == 1
 #   total_count = html.at(".row.search-result-head").text.scan(/\d+/)
-#   max_page = (Float(total_count) / Float(20)).ceil
+#   max_page = (Float(total_count) / Float(20)).floor
 
 #   (2..max_page).each do |next_page_number|
 #     pages << {

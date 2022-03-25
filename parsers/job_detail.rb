@@ -13,85 +13,95 @@ record['description'] = html.at_css("div.job-description p").text.strip
 # record['industry'] = 1
 
 industries_map = {
-    'QA' => [1, 'ALL', 'All'],
-    'Project Manager' => [1, 'ALL', 'All'],
+    'Admin and Secretarial' => [1, 'ALL', 'All'],
+    'Call Center and Customer Service' => [1, 'ALL', 'All'],
+    'Retail' => [6, 'CONSUMER', 'CONSUMER'],
+    'FMCG' => [6, 'CONSUMER', 'CONSUMER'],
     'Help Desk' => [5, 'COMPUTERS', 'Computers and Technology'],
     'Telecom Analyst' => [5, 'COMPUTERS', 'Computers and Technology'],
-    'Telecom / PBX / Cable Technician' => [5, 'COMPUTERS', 'Computers and Technology'],
-    'Case/Care Manager (Healthcare)' =>  [9, 'HEALTHCARE', 'Healthcare'],
+    'Aerospace' => [3, 'AEROSPACE', 'Aerospace and Defense'],
     'Architect' => [16, 'PROFESSIONAL', 'Professional Services/Consulting'],
+    'Marketing' => [16, 'PROFESSIONAL', 'Professional Services/Consulting'],
     'Network Engineer' => [5, 'COMPUTERS', 'Computers and Technology'],
     'Customer Service' => [15, 'TELECOMMUNICATIONS', 'Telecommunications'],
-    'Training' => [1, 'ALL', 'All'],
+    'Trade and Services' => [1, 'ALL', 'All'],
     'Light Industrial' => [1, 'ALL', 'All'],
-    'Electrical Assembler' => [11, 'MANUFACTURING', 'Manufacturing'],
+    'Mining' => [11, 'MANUFACTURING', 'Manufacturing'],
     'PC Technician' => [5, 'COMPUTERS', 'Computers and Technology'],
-    'System Administrator' => [5, 'COMPUTERS', 'Computers and Technology'],
-    'Engineering (Non IT)' => [5, 'COMPUTERS', 'Computers and Technology'],
+    'Engineering (Non IT)' => [11, 'MANUFACTURING', 'Manufacturing'],
     'Architect (Engineering)' => [5, 'COMPUTERS', 'Computers and Technology'],
-    'Designer' => [16, 'PROFESSIONAL', 'Professional Services/Consulting'],
+    'Design and Creative' => [16, 'PROFESSIONAL', 'Professional Services/Consulting'],
     'Accounting / Finance' => [7, 'FINANCIAL', 'Financial'],
-    'Materials Science & Engineering' => [5, 'COMPUTERS', 'Computers and Technology'],
+    'IT' => [5, 'COMPUTERS', 'Computers and Technology'],
     'Business Analysis' => [16, 'PROFESSIONAL', 'Professional Services/Consulting'],
-    'Business Analyst (BA)' => [16, 'PROFESSIONAL', 'Professional Services/Consulting'],
+    'Agriculture Fishing and Forestry' => [4, 'AGRICULTURAL', 'Agricultural'],
     'Software Engineering' => [5, 'COMPUTERS', 'Computers and Technology'],
     'Data Warehousing' => [5, 'COMPUTERS', 'Computers and Technology'],
-    'Financial Reporting' => [7, 'FINANCIAL', 'Financial'],
+    'Banking' => [7, 'FINANCIAL', 'Financial'],
+    'Hospitality and Catering' => [1, 'ALL', 'All'],
     'Biomedical Engineering' => [5, 'COMPUTERS', 'Computers and Technology'],
     'Database Administrator (DBA)' => [5, 'COMPUTERS', 'Computers and Technology'],
     'Security Engineering' => [5, 'COMPUTERS', 'Computers and Technology'],
-    'Desktop Support' => [5, 'COMPUTERS', 'Computers and Technology'],
+    'Public Sector and Government' => [8, 'GOVERNMNT', 'Government'],
     'Computer Engineering' => [5, 'COMPUTERS', 'Computers and Technology'],
     'Insurance' => [10, 'INSURANCE', 'Insurance'],
-    'Administrative Assistant' => [16, 'PROFESSIONAL', 'Professional Services/Consulting'],
+    'Oil and Gas' => [11, 'MANUFACTURING', 'Manufacturing'],
+    'Legal' => [16, 'PROFESSIONAL', 'Professional Services/Consulting'],
     'Sales' => [16, 'PROFESSIONAL', 'Professional Services/Consulting'],
     'Recruiting / Staffing' => [16, 'PROFESSIONAL', 'Professional Services/Consulting'],
     'Nurse' => [9, 'HEALTHCARE', 'Healthcare'],
     'Corporate Operations' => [16, 'PROFESSIONAL', 'Professional Services/Consulting'],
     'Civil Engineering' => [1, 'ALL', 'All'],
-    'Electrical Engineering' => [11, 'MANUFACTURING', 'Manufacturing'],
-    'Payroll' => [7, 'FINANCIAL', 'Financial'],
+    'Health and Safety' => [9, 'HEALTHCARE', 'Healthcare'],
+    'Transport and Rail' => [1, 'ALL', 'All'],
+    'Building and Construction' => [1, 'ALL', 'All'],
+    'Engineering' => [11, 'MANUFACTURING', 'Manufacturing'],
+    'Electronics' => [11, 'MANUFACTURING', 'Manufacturing'],
+    'Education and Training' => [2, 'ACADEMIA', 'Academia'],
+    'Science and Research' => [2, 'ACADEMIA', 'Academia'],
     'Managerial / Professional' =>  [1, 'ALL', 'All'],
     'Financial Planning & Analysis' => [7, 'FINANCIAL', 'Financial'],
-    'EMR' =>  [1, 'ALL', 'All'],
-    'Accounts Payable' => [7, 'FINANCIAL', 'Financial'],
-    'Chemical Engineering' => [16, 'PROFESSIONAL', 'Professional Services/Consulting'],
+    'Community Services' => [16, 'PROFESSIONAL', 'Professional Services/Consulting'],
     'Accounts Receivable' => [7, 'FINANCIAL', 'Financial'],
-    'Warehouse' => [1, 'ALL', 'All'],
+    'Human Resources and Personnel' => [1, 'ALL', 'All'],
+    'Utilities' => [1, 'ALL', 'All'],
     'Programmer / Developer' => [5, 'COMPUTERS', 'Computers and Technology'],
     'Audit' => [7, 'FINANCIAL', 'Financial'],
-    'Mechanical Engineering' => [1, 'ALL', 'All'],
+    'Not for Profit and Charities' => [1, 'ALL', 'All'],
     'Laboratory Technician' => [9, 'HEALTHCARE', 'Healthcare'],
     'Automotive' =>  [11, 'MANUFACTURING', 'Manufacturing'],
-    'Medical Assistant' => [9, 'HEALTHCARE', 'Healthcare'],
+    'Medical and Nursing' => [9, 'HEALTHCARE', 'Healthcare'],
     'Surgical Technician' => [1, 'ALL', 'All'],
     'Purchasing' => [1, 'ALL', 'All'],
+    'Purchasing and Procurement' => [1, 'ALL', 'All'],
     'Mechanical Assembler' => [9, 'HEALTHCARE', 'Healthcare'],
-    'NOC Technician' => [1, 'ALL', 'All'],
+    'Real Estate and Property' => [1, 'ALL', 'All'],
+    'Property and Housing' => [1, 'ALL', 'All'],
     'Nurse Assistant' => [9, 'HEALTHCARE', 'Healthcare'],
     'Computer Operator' => [5, 'COMPUTERS', 'Computers and Technology'],
     'Environmental Engineering' => [1, 'ALL', 'All'],
     'Accountancy' => [7, 'FINANCIAL', 'Financial'],
-    'Patient Services (i.e. Scheduler)' => [1, 'ALL', 'All'],
+    'Leisure and Sport' => [1, 'ALL', 'All'],
     'Technical Writer' => [1, 'ALL', 'All'],
-    'Phlebotomist' => [1, 'ALL', 'All'],
+    'Logistics Distribution and Supply Chain' => [1, 'ALL', 'All'],
     'Financial Services' => [7, 'FINANCIAL', 'Financial'],
     'Sterile Processing Technician' => [1, 'ALL', 'All'],
-    'Pharmacy Technician' => [9, 'HEALTHCARE', 'Healthcare'],
+    'Pharmaceuticals' => [9, 'HEALTHCARE', 'Healthcare'],
     'Claims/Denials' => [1, 'ALL', 'All'],
     'Collections' => [1, 'ALL', 'All'],
     'Drafter' => [1, 'ALL', 'All'],
     'Pharmacist' => [9, 'HEALTHCARE', 'Healthcare'],
     'Tax' => [7, 'FINANCIAL', 'Financial'],
-    'Imaging Technician (Healthcare)' => [9, 'HEALTHCARE', 'Healthcare'],
     'Environmental Services EVS (Healthcare)' => [9, 'HEALTHCARE', 'Healthcare'],
     'Technical Advisor' => [1, 'ALL', 'All'],
     'Psychologist/Psychiatrist' => [9, 'HEALTHCARE', 'Healthcare'],
     'Social Worker' => [1, 'ALL', 'All'],
     'Physical Therapist' => [9, 'HEALTHCARE', 'Healthcare'],
-    'Respiratory Therapist' => [1, 'ALL', 'All'],
+    'Defense and Military' => [1, 'ALL', 'All'],
     'Manufacturing and Production' =>  [11, 'MANUFACTURING', 'Manufacturing'],
+    'Travel and Tourism' => [1, 'ALL', 'All'],
 }
+
 raw_industry =  html.at_css("div.industry-type p.sub-heading-desc span").text.strip
 record['raw_industry'] = raw_industry
 # p raw_industry
@@ -99,7 +109,6 @@ industry = industries_map[raw_industry].first
 record['industry'] = industry
 # p industry
 
-# rate_value = 
 
 # extract rate Type
 # rate_type =
@@ -182,6 +191,54 @@ def currency(rate)
 end
 
 record['currency'] = currency(rate)
+
+# extract rate_value
+rawrate_rate_value = rate.scan(/([A-Z]{3}(?<![A-Z]{4})(?![A-Z]))(.*)(\/.*)/).flatten[1]
+if rawrate_rate_value
+  rawrate_rate_value = rawrate_rate_value
+  # rate_type_regex.find { |regex| rawrate_rate_value =~ regex }
+  # rate_type = $1 ? rate_type_map[$1].first : 3
+else
+  rawrate_rate_value = ""
+  # rate_type = 3
+  # rate_value = ""
+end
+# p rawrate_rate_value
+## GENERATE RATE VALUE
+if rawrate_rate_value.include? "-"
+	arr_raw_rate = rawrate_rate_value.split("-")
+	arr_raw_rate.each do |rate_value|
+		clean_raw_rate = rate_value.gsub("$", "")
+		if clean_raw_rate.scan(/[^0-9]/).flatten.first.nil?
+			clean_raw_rate = clean_raw_rate.to_f
+		else
+			if clean_raw_rate.include?(".")
+				clean_raw_rate = clean_raw_rate.to_f
+			end
+		end
+    res_rate_value = record.merge('rate_value' => clean_raw_rate)
+    record['rate_value'] = res_rate_value['rate_value']
+    # p res_rate_value
+	end
+else
+	clean_raw_rate = rawrate_rate_value != "" ? rawrate_rate_value.gsub("$", "") : ""
+	if clean_raw_rate.scan(/[^0-9]/).flatten.first.nil?
+		clean_raw_rate = clean_raw_rate
+	else
+		if clean_raw_rate.include?(".")
+			clean_raw_rate = clean_raw_rate.to_f
+		end
+			# if clean_raw_rate.include?(",")
+			# 	clean_raw_rate = clean_raw_rate.gsub(",", "").to_i
+			# end
+			# if clean_raw_rate.include?("k")
+			# 	clean_raw_rate = clean_raw_rate.gsub("k", "000").to_i
+			# end
+	end
+    res_rate_value = record.merge('rate_value' => clean_raw_rate)
+    record['rate_value'] = res_rate_value['rate_value']
+    # p res_rate_value
+end
 
 #extract city
 record['city'] = html.css("div.sub-heading p.sub-heading-desc span")[1].text.strip
