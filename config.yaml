@@ -10,3 +10,12 @@ parsers:
   - file: ./parsers/job_detail.rb
     page_type: job_detail
     disabled: false
+
+exporters:
+  - exporter_name: job_listing
+    exporter_type: json
+    collection: final_output
+    write_mode: pretty_array
+    disabled: true
+  - file: ./exporters/sample_output_csv.yaml
+    disabled: true
