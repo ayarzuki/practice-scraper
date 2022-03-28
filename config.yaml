@@ -8,6 +8,3 @@ parsers:
   - file: ./parsers/job_detail.rb
     page_type: job_detail
     disabled: false
-exporters:
-  - file: ./exporters/job_listing_json
-    disabled: false
