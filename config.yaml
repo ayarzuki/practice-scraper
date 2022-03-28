@@ -1,21 +1,13 @@
 seeder:
   file: ./seeder/seeder.rb
   disabled: false
-
 parsers:
   - file: ./parsers/job_list.rb
     page_type: job_list
     disabled: false
-
   - file: ./parsers/job_detail.rb
     page_type: job_detail
     disabled: false
-
 exporters:
-  - exporter_name: job_listing
-    exporter_type: json
-    collection: final_output
-    write_mode: pretty_array
-
-  - file: ./exporters/sample_output_csv.yaml
+  - file: ./exporters/job_listing_json
     disabled: false
