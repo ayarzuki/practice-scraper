@@ -22,7 +22,7 @@ pages << {
     #     "height": 695
     # },
     vars: { 
-        page_number: 11
+        page_number: 1
     },
     driver: { 
         "name": "scraping manpower_can",

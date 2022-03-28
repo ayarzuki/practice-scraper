@@ -25,7 +25,7 @@ end
 
 # you can try to fetch the pagination page one by one
 page_number = vars['page_number'] || 1
-p page_number
+# p page_number
 # base_url = html.at("base").attr("href")
 # p base_url
 # resource_pagination_url = content.split('var resourcepaginationURL = "', 2).last.split('";').first
