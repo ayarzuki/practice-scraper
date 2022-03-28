@@ -223,7 +223,7 @@ if rawrate_rate_value.include? "-"
 else
 	clean_raw_rate = rawrate_rate_value != "" ? rawrate_rate_value.gsub("$", "") : ""
 	if clean_raw_rate.scan(/[^0-9]/).flatten.first.nil?
-		clean_raw_rate = clean_raw_rate
+		clean_raw_rate = clean_raw_rate.to_f
 	else
 		if clean_raw_rate.include?(".")
 			clean_raw_rate = clean_raw_rate.to_f
