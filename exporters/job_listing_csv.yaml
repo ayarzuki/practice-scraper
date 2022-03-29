@@ -1,0 +1,33 @@
+exporter_name: job_listing_csv
+exporter_type: csv
+collection: job_listing
+start_on_job_done: true
+fields:
+  - header: "title"
+    path: "title"
+  - header: "description"
+    path: "description"
+  - header: "industry"
+    path: "industry"
+  - header: "rate_value"
+    path: "rate_value"
+  - header: "rate_type"
+    path: "rate_type"
+  - header: "currency"
+    path: "currency"
+  - header: "city"
+    path: "city"
+  - header: "state"
+    path: "state"
+  - header: "country"
+    path: "country"
+  - header: "job_url"
+    path: "job_url"
+  - header: "date_posted"
+    path: "date_posted"
+  - header: "raw_rate"
+    path: "raw_rate"
+  - header: "raw_description"
+    path: "raw_description"
+  - header: "raw_industry"
+    path: "raw_industry"
