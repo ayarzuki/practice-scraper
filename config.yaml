@@ -11,3 +11,5 @@ parsers:
 exporters:
   - file: ./exporters/job_listing10_json.yaml
     disabled: false
+  - file: ./exporters/job_listing_json.yaml
+    disabled: false
