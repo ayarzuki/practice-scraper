@@ -1,17 +1,16 @@
+require 'date'
 html = Nokogiri.HTML(content)
 
 #initialize empty hash
-record = {}
+#record = {}
 
-# extract title
-record['title'] = html.css("div.jobTitleDesc h1").text.strip
+### extract title
+title = html.css("div.jobTitleDesc h1").text.strip rescue nil
 
-# extract description
-record['description'] = html.at_css("div.job-description p").text.strip
+### extract description
+description = html.at_css("div.job-description p").text.strip.gsub(/[\n\r]/, "")
 
-# extract industry
-# record['industry'] = 1
-
+### Generate Regex for Industry
 industries_map = {
     'Admin and Secretarial' => [1, 'ALL', 'All'],
     'Call Center and Customer Service' => [1, 'ALL', 'All'],
@@ -102,15 +101,16 @@ industries_map = {
     'Travel and Tourism' => [1, 'ALL', 'All'],
 }
 
+### extract raw_industry
 raw_industry =  html.at_css("div.industry-type p.sub-heading-desc span").text.strip
-record['raw_industry'] = raw_industry
+# record['raw_industry'] = raw_industry
 # p raw_industry
 industry = industries_map[raw_industry].first
-record['industry'] = industry
+#record['industry'] = industry
 # p industry
 
 
-# extract rate Type
+### Generate Regex for Rate Type
 # rate_type =
 rate_type_map = {
     "per hour" => [1, 'HOURLY', 'Hourly'],
@@ -167,7 +167,7 @@ rate_type_regex = [
 rate = html.css("p#salaryDivi").text.strip
 
 ## # extract rate type
-raw_rate = rate.scan(/\/.*/).flatten.first
+raw_rate = rate
     if raw_rate
         rate_type_regex.find { |regex| raw_rate =~ regex }
         rate_type = $1 ? rate_type_map[$1].first : 3
@@ -177,9 +177,10 @@ raw_rate = rate.scan(/\/.*/).flatten.first
         rate_value = ""
 end
 
-record['rate_type'] = rate_type
+# record['rate_type'] = rate_type
 
-def currency(rate)
+### Generate Currency
+def generate_currency(rate)
   rate1 = rate.match(/[A-Z]{3}(?<![A-Z]{4})(?![A-Z])/)
   rate2 = rate1.to_s
   
@@ -189,23 +190,112 @@ def currency(rate)
     return nil
   end
 end
+### Extract Currency
+currency = generate_currency(rate)
 
-record['currency'] = currency(rate)
+###extract city
+city = html.css("div.sub-heading p.sub-heading-desc span")[1].text.strip
 
-# extract rate_value
-rawrate_rate_value = rate.scan(/([A-Z]{3}(?<![A-Z]{4})(?![A-Z]))(.*)(\/.*)/).flatten[1]
-if rawrate_rate_value
-  rawrate_rate_value = rawrate_rate_value
+### Generate State
+# record['state'] = nil
+state_parse = html.at_css("div.branchInfo p.sub-heading-desc span.jdCityDetails").text
+
+def generate_state(str)
+    input1 = str.match(/.[A-Z]{2}(?<![A-Z]{3})(?![A-Z])./)
+    input2 = input1.to_s.strip
+    
+    if input2.match(/[A-Z]/)
+      return input2
+    else
+      return nil
+    end
+  end
+### Extract State
+state = generate_state(state_parse) 
+
+### Generate Country
+# record['country'] = "United States"
+country_parse = html.at_css(".advertID p.sub-heading-desc").text.strip
+
+def generate_country(country_parse)
+  country1 = country_parse.match(/[A-Z]{3}(?<![A-Z]{4})(?![A-Z])/)
+  country2 = country1.to_s
+
+  if country2.match(/(USA)/)
+    return "United States of America"
+  elsif country2.match(/(CAN)/)
+    return "Canada"
+  else
+    return country2
+  end
+end
+### Extract Country
+country = generate_country(country_parse)
+
+### Job url
+job_url = page["url"]
+
+### Extract Date Posted
+date_posted = html.css("p.posted-date-text span")[1].text.strip
+date_posted = Date.parse(date_posted)
+
+### Extract Raw_Rate
+# rate = html.css("p#salaryDivi").text.strip
+raw_rate = rate
+
+### Extract description with html tags
+raw_description = html.at_css("div.job-description p").inner_html
+
+# extract for provided if the industry can't be parsed as one in the Industry Enum
+# record['raw_industry'] = html.at_css("div.industry-type p.sub-heading-desc span").text.strip
+
+# not require translation because in English
+# translated_title, translated_description, translated_raw_industry, translated_raw_rate
+translated_title = ""
+translated_description = ""
+translated_raw_industry = ""
+translated_raw_rate = ""
+
+# specify the collection where thisrecord will be stored
+# record['_collection'] = "job_listing"
+
+# # # This an old script to save the product to the job's outputs
+#outputs << record
+
+
+record = {
+ 	_collection: "final_output",
+ 	title: title,
+ 	raw_description: raw_description,
+ 	description: description,
+ 	raw_industry: raw_industry,
+ 	industry: industry,
+ 	currency: currency,
+ 	city: city,
+ 	state: state,
+ 	country: country,
+ 	job_url: job_url,
+ 	date_posted: date_posted,
+ 	raw_rate: raw_rate,
+ 	rate_type: rate_type
+}
+
+### extract rate_value
+rawrate_rate_value = rate.scan(/([A-Z]{3}(?<![A-Z]{4})(?![A-Z]))([0-9]{1}.*[0-9]{1})/).flatten[1]
+# if rawrate_rate_value
+#   rawrate_rate_value = rawrate_rate_value
   # rate_type_regex.find { |regex| rawrate_rate_value =~ regex }
   # rate_type = $1 ? rate_type_map[$1].first : 3
-else
-  rawrate_rate_value = ""
+# else
+#   rawrate_rate_value = ""
   # rate_type = 3
   # rate_value = ""
-end
+# end
 # p rawrate_rate_value
 ## GENERATE RATE VALUE
-if rawrate_rate_value.include? "-"
+if rawrate_rate_value == nil
+    outputs << record.merge('rate_value' => "")
+elsif rawrate_rate_value.include? "-"
 	arr_raw_rate = rawrate_rate_value.split("-")
 	arr_raw_rate.each do |rate_value|
 		clean_raw_rate = rate_value.gsub("$", "")
@@ -216,8 +306,9 @@ if rawrate_rate_value.include? "-"
 				clean_raw_rate = clean_raw_rate.to_f
 			end
 		end
-    res_rate_value = record.merge('rate_value' => clean_raw_rate)
-    record['rate_value'] = res_rate_value['rate_value']
+        outputs << record.merge('rate_value' => clean_raw_rate)
+    # res_rate_value = record.merge('rate_value' => clean_raw_rate)
+    # record['rate_value'] = res_rate_value['rate_value']
     # p res_rate_value
 	end
 else
@@ -235,104 +326,8 @@ else
 			# 	clean_raw_rate = clean_raw_rate.gsub("k", "000").to_i
 			# end
 	end
-    res_rate_value = record.merge('rate_value' => clean_raw_rate)
-    record['rate_value'] = res_rate_value['rate_value']
+    outputs << record.merge('rate_value' => clean_raw_rate)
+    # res_rate_value = record.merge('rate_value' => clean_raw_rate)
+    # record['rate_value'] = res_rate_value['rate_value']
     # p res_rate_value
 end
-
-#extract city
-record['city'] = html.css("div.sub-heading p.sub-heading-desc span")[1].text.strip
-
-# extract state
-# record['state'] = nil
-state_parse = html.at_css("div.branchInfo p.sub-heading-desc span.jdCityDetails").text
-
-def state(str)
-    input1 = str.match(/.[A-Z]{2}(?<![A-Z]{3})(?![A-Z])./)
-    input2 = input1.to_s.strip
-    
-    if input2.match(/[A-Z]/)
-      return input2
-    else
-      return nil
-    end
-  end
-  
-record['state'] = state(state_parse) 
-
-# extract country
-# record['country'] = "United States"
-country_parse = html.at_css(".advertID p.sub-heading-desc").text.strip
-
-def country(country_parse)
-  country1 = country_parse.match(/[A-Z]{3}(?<![A-Z]{4})(?![A-Z])/)
-  country2 = country1.to_s
-
-  if country2.match(/(USA)/)
-    return "United States of America"
-  elsif country2.match(/(CAN)/)
-    return "Canada"
-  else
-    return country2
-  end
-end
-
-record['country'] = country(country_parse)
-
-# extract job url
-record['job_url'] = page["url"]
-
-record['date_posted'] = html.css("p.posted-date-text span")[1].text.strip
-
-#extract raw_rate
-# rate = html.css("p#salaryDivi").text.strip
-record['raw_rate'] = rate
-
-# extract description with html tags
-record['raw_description'] = html.at_css("div.job-description p").inner_html
-
-# extract for provided if the industry can't be parsed as one in the Industry Enum
-# record['raw_industry'] = html.at_css("div.industry-type p.sub-heading-desc span").text.strip
-
-# not require translation because in English
-# translated_title, translated_description, translated_raw_industry, translated_raw_rate
-
-# specify the collection where thisrecord will be stored
-record['_collection'] = "job_listing"
-
-# # # This an old script to save the product to the job's outputs
-#record = {
-# 	_collection: "sample_output",
-# 	title: title,
-# 	raw_description: raw_description,
-# 	description: description,
-# 	raw_industry: raw_industry,
-# 	currency: currency,
-# 	city: city,
-# 	state: state,
-# 	country: country,
-# 	job_url: job_url,
-# 	date_posted: date_posted,
-# 	raw_rate: raw_rate,
-# }
-
-outputs << record
-
-
-#record = {
-# 	_collection: "final_output",
-# 	title: title,
-# 	raw_description: raw_description,
-# 	description: description,
-# 	raw_industry: raw_industry,
-# 	industry: industry,
-# 	currency: currency,
-# 	city: city,
-# 	state: state,
-# 	country: country,
-# 	job_url: job_url,
-# 	date_posted: date_posted,
-# 	raw_rate: raw_rate,
-# 	rate_type: rate_type
-# }
-
