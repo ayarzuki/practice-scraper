@@ -209,9 +209,69 @@ def generate_state(str)
     else
       return nil
     end
-  end
+end
+
 ### Extract State
-state = generate_state(state_parse) 
+### Generate State Map
+states_map = {
+	"AL" => "Alabama",
+	"AK" => "Alaska",
+	"AZ" => "Arizona",
+	"AR" => "Arkansas",
+	"CA" => "California",
+	"CO" => "Colorado",
+	"CT" => "Connecticut",
+	"DE" => "Delaware",
+	"DC" => "District of Columbia",
+	"FL" => "Florida",
+	"GA" => "Georgia",
+	"HI" => "Hawaii",
+	"ID" => "Idaho",
+	"IL" => "Illinois",
+	"IN" => "Indiana",
+	"IA" => "Iowa",
+	"KS" => "Kansas",
+	"KY" => "Kentucky",
+	"LA" => "Louisiana",
+	"ME" => "Maine",
+	"MD" => "Maryland",
+	"MA" => "Massachusetts",
+	"MI" => "Michigan",
+	"MN" => "Minnesota",
+	"MS" => "Mississippi",
+	"MO" => "Missouri",
+	"MT" => "Montana",
+	"NE" => "Nebraska",
+	"NV" => "Nevada",
+	"NH" => "New Hampshire",
+	"NJ" => "New Jersey",
+	"NM" => "New Mexico",
+	"NY" => "New York",
+	"NC" => "North Carolina",
+	"ND" => "North Dakota",
+	"OH" => "Ohio",
+	"OK" => "Oklahoma",
+	"OR" => "Oregon",
+  "ON" => "Ontario",
+	"PA" => "Pennsylvania",
+  "QC" => "Quebec",
+	"RI" => "Rhode Island",
+	"SC" => "South Carolina",
+	"SD" => "South Dakota",
+	"TN" => "Tennessee",
+	"TX" => "Texas",
+	"UT" => "Utah",
+	"VT" => "Vermont",
+	"VA" => "Virginia",
+	"WA" => "Washington",
+	"WV" => "West Virginia",
+	"WI" => "Wisconsin",
+	"WY" => "Wyoming"
+}
+
+
+state_parse = generate_state(state_parse) 
+state = states_map[state_parse]
 
 ### Generate Country
 # record['country'] = "United States"
@@ -314,7 +374,8 @@ elsif rawrate_rate_value.include? "-"
 else
 	clean_raw_rate = rawrate_rate_value != "" ? rawrate_rate_value.gsub("$", "") : ""
 	if clean_raw_rate.scan(/[^0-9]/).flatten.first.nil?
-		clean_raw_rate = clean_raw_rate.to_f
+    # extract rate_value to nil if it is not a number
+		clean_raw_rate = nil
 	else
 		if clean_raw_rate.include?(".")
 			clean_raw_rate = clean_raw_rate.to_f

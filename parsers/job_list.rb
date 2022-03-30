@@ -39,8 +39,8 @@ pages << {
   page_type: 'job_list',
   method: 'POST',
   headers: {
-    'Accept' => '*/*',
-    'Accept-Encoding' => 'gzip, deflate, br',
+    # 'Accept' => '*/*',
+    # 'Accept-Encoding' => 'gzip, deflate, br',
     'Accept-Language' => 'en-US,en;q=0.5',
     'Connection' => 'keep-alive',
     'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',

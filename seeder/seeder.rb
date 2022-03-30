@@ -21,6 +21,8 @@ pages << {
     #     "width": 1280,
     #     "height": 695
     # },
+    no_url_encode: true,
+    http2: true,
     vars: { 
         page_number: 1
     },
