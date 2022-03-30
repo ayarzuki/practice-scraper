@@ -10,7 +10,7 @@ parsers:
     disabled: false
 exporters:
   - file: ./exporters/job_listing10_json.yaml
-    disabled: true
+    disabled: false
   - file: ./exporters/job_listing_json.yaml
     disabled: false
   - file: ./exporters/job_listing_csv.yaml
