@@ -7,11 +7,11 @@ parsers:
     disabled: false
   - file: ./parsers/job_detail.rb
     page_type: job_detail
-    disabled: true
+    disabled: false
 exporters:
   - file: ./exporters/job_listing10_json.yaml
     disabled: true
   - file: ./exporters/job_listing_json.yaml
-    disabled: true
+    disabled: false
   - file: ./exporters/job_listing_csv.yaml
-    disabled: true
+    disabled: false

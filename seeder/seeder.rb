@@ -24,7 +24,7 @@ pages << {
     no_url_encode: true,
     http2: true,
     vars: { 
-        page_number: 1
+        page_number: 10
     },
     driver: { 
         "name": "scraping manpower_can",

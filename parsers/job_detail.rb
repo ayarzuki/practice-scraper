@@ -4,6 +4,8 @@ html = Nokogiri.HTML(content)
 #initialize empty hash
 #record = {}
 
+# p html
+
 ### extract title
 title = html.css("div.jobTitleDesc h1").text.strip rescue nil
 

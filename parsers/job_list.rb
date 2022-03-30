@@ -25,17 +25,17 @@ end
 
 # you can try to fetch the pagination page one by one
 page_number = vars['page_number'] || 1
-# p page_number
-# base_url = html.at("base").attr("href")
-# p base_url
-# resource_pagination_url = content.split('var resourcepaginationURL = "', 2).last.split('";').first
-# p resource_pagination_url
+p page_number
+base_url = html.at("base").attr("href")
+p base_url
+resource_pagination_url = content.split('var resourcepaginationURL = "', 2).last.split('";').first
+p resource_pagination_url
 
-# p (base_url + resource_pagination_url)
+p (base_url + resource_pagination_url)
 
 pages << {
-  #url: "#{base_url}#{resource_pagination_url}",
-  url: 'https://www.manpower.ca/ManpowerCanada/search-jobs?txtJobType=&txtLocation=&txtLatitude=&txtLongitude=&source=',
+  url: "#{base_url}#{resource_pagination_url}",
+  # url: 'https://www.manpower.ca/ManpowerCanada/search-jobs?txtJobType=&txtLocation=&txtLatitude=&txtLongitude=&source=',
   page_type: 'job_list',
   method: 'POST',
   headers: {
@@ -57,7 +57,8 @@ pages << {
   },
   driver: { 
     "name": "scraping manpower_can",
-    "stealth": true,  
+    "stealth": true,
+    "code": "await page.click('ul.pager > li.next > a[href='javascript:void(0)']'); await sleep (3000);"
   }
 }
 
