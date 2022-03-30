@@ -99,6 +99,7 @@ industries_map = {
     'Defense and Military' => [1, 'ALL', 'All'],
     'Manufacturing and Production' =>  [11, 'MANUFACTURING', 'Manufacturing'],
     'Travel and Tourism' => [1, 'ALL', 'All'],
+    'Media' => [1, 'ALL', 'All']
 }
 
 ### extract raw_industry
@@ -354,7 +355,7 @@ rawrate_rate_value = rate.scan(/([A-Z]{3}(?<![A-Z]{4})(?![A-Z]))([0-9]{1}.*[0-9]
 # p rawrate_rate_value
 ## GENERATE RATE VALUE
 if rawrate_rate_value == nil
-    outputs << record.merge('rate_value' => "")
+    outputs << record.merge('rate_value' => nil)
 elsif rawrate_rate_value.include? "-"
 	arr_raw_rate = rawrate_rate_value.split("-")
 	arr_raw_rate.each do |rate_value|
@@ -375,7 +376,7 @@ else
 	clean_raw_rate = rawrate_rate_value != "" ? rawrate_rate_value.gsub("$", "") : ""
 	if clean_raw_rate.scan(/[^0-9]/).flatten.first.nil?
     # extract rate_value to nil if it is not a number
-		clean_raw_rate = nil
+		clean_raw_rate = clean_raw_rate
 	else
 		if clean_raw_rate.include?(".")
 			clean_raw_rate = clean_raw_rate.to_f
