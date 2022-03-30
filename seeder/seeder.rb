@@ -2,6 +2,7 @@ pages << {
     page_type: 'job_list',
     method: "GET",
     force_fetch: true,
+    fetch_type: "browser",
     headers: {
         "accept" => "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
         "accept-encoding" => "gzip, deflate, br",
@@ -24,7 +25,7 @@ pages << {
     no_url_encode: true,
     http2: true,
     vars: { 
-        page_number: 10
+        page_number: 1
     },
     driver: { 
         "name": "scraping manpower_can",

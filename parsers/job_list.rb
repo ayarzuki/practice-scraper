@@ -12,6 +12,7 @@ positions.each do |position|
         url: url,
         method: "GET",
         force_fetch: true,
+        fetch_type: "browser",
         page_type: "job_detail",
         vars: { 
             title: title
@@ -25,18 +26,19 @@ end
 
 # you can try to fetch the pagination page one by one
 page_number = vars['page_number'] || 1
-p page_number
-base_url = html.at("base").attr("href")
-p base_url
-resource_pagination_url = content.split('var resourcepaginationURL = "', 2).last.split('";').first
-p resource_pagination_url
+# p page_number
+# base_url = html.at("base").attr("href")
+# p base_url
+# resource_pagination_url = content.split('var resourcepaginationURL = "', 2).last.split('";').first
+# p resource_pagination_url
 
-p (base_url + resource_pagination_url)
+# p (base_url + resource_pagination_url)
 
 pages << {
-  url: "#{base_url}#{resource_pagination_url}",
-  # url: 'https://www.manpower.ca/ManpowerCanada/search-jobs?txtJobType=&txtLocation=&txtLatitude=&txtLongitude=&source=',
+  # url: "#{base_url}#{resource_pagination_url}",
+  url: 'https://www.manpower.ca/ManpowerCanada/search-jobs?txtJobType=&txtLocation=&txtLatitude=&txtLongitude=&source=',
   page_type: 'job_list',
+  fetch_type: "browser",
   method: 'POST',
   headers: {
     # 'Accept' => '*/*',
@@ -58,7 +60,10 @@ pages << {
   driver: { 
     "name": "scraping manpower_can",
     "stealth": true,
-    "code": "await page.click('ul.pager > li.next > a[href='javascript:void(0)']'); await sleep (3000);"
+    # "code": "await page.goto('https://www.manpower.ca/ManpowerCanada/search-jobs?txtJobType=&txtLocation=&txtLatitude=&txtLongitude=&source='); await refreshQueuePage(); await page.click('ul.pager > li.next > a[href='javascript:void(0)']'); await sleep (3000);",
+    # "goto_options": {
+    #   "timeout": 3000
+    # }
   }
 }
 

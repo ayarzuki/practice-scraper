@@ -327,7 +327,7 @@ translated_raw_rate = ""
 
 
 record = {
- 	_collection: "final_output",
+ 	_collection: "job_listing",
  	title: title,
  	raw_description: raw_description,
  	description: description,

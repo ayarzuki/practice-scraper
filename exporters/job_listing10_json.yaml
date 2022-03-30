@@ -1,6 +1,6 @@
 exporter_name: job_listing10_json
 exporter_type: json
-collection: final_output
+collection: job_listing
 write_mode: pretty_array
 limit: 10
 offset: 0

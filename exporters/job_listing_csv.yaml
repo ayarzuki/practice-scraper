@@ -1,6 +1,6 @@
 exporter_name: job_listing_csv
 exporter_type: csv
-collection: final_output
+collection: job_listing
 start_on_job_done: true
 fields:
   - header: "title"
