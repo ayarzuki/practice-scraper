@@ -20,7 +20,9 @@ positions.each do |position|
         driver: { 
           "name": "scraping manpower_can",
           "stealth": true,  
-        }
+        },
+        no_url_encode: true,
+        http2: true,
     }
 end
 
@@ -64,7 +66,9 @@ pages << {
     # "goto_options": {
     #   "timeout": 3000
     # }
-  }
+  },
+  no_url_encode: true,
+  http2: true,
 }
 
 # or all at once

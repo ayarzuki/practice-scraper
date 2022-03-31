@@ -7,7 +7,7 @@ html = Nokogiri.HTML(content)
 # p html
 
 ### extract title
-title = html.css("div.jobTitleDesc h1").text.strip rescue nil
+title = html.css("div.jobTitleDesc h1").text.strip
 
 ### extract description
 description = html.at_css("div.job-description p").text.strip.gsub(/[\n\r]/, "")
