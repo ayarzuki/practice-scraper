@@ -2,7 +2,7 @@ pages << {
     page_type: 'job_list',
     method: "GET",
     force_fetch: true,
-    fetch_type: "browser",
+    # fetch_type: "browser",
     headers: {
         "accept" => "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
         "accept-encoding" => "gzip, deflate, br",
@@ -22,8 +22,8 @@ pages << {
     #     "width": 1280,
     #     "height": 695
     # },
-    no_url_encode: true,
-    http2: true,
+    # no_url_encode: true,
+    # http2: true,
     vars: { 
         page_number: 1
     },

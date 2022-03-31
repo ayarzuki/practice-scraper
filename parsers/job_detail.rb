@@ -147,25 +147,6 @@ rate_type_regex = [
     /(\/year)/,
 ]
 
-# raw_rate = rate.scan(/\/.*/).flatten.first
-#     if raw_rate
-#         rate_type_regex.find { |regex| raw_rate =~ regex }
-#         rate_type = $1 ? rate_type_map[$1].first : 3
-#     else
-#         raw_rate= ""
-#         rate_type = 3
-#         rate_value = ""
-# end
-
-# p raw_rate
-# p rate_type
-
-# record['rate_type'] = rate_type
-
-# p rate
-
-# extract currency
-# record['currency'] = "USD"
 # # # extract rate from HTML
 rate = html.css("p#salaryDivi").text.strip
 
@@ -327,7 +308,7 @@ translated_raw_rate = ""
 
 
 record = {
- 	_collection: "job_listing",
+ 	_collection: "final_output",
  	title: title,
  	raw_description: raw_description,
  	description: description,
@@ -391,7 +372,4 @@ else
 			# end
 	end
     outputs << record.merge('rate_value' => clean_raw_rate)
-    # res_rate_value = record.merge('rate_value' => clean_raw_rate)
-    # record['rate_value'] = res_rate_value['rate_value']
-    # p res_rate_value
 end

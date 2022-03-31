@@ -12,7 +12,7 @@ positions.each do |position|
         url: url,
         method: "GET",
         force_fetch: true,
-        fetch_type: "browser",
+        # fetch_type: "browser",
         page_type: "job_detail",
         vars: { 
             title: title
@@ -21,8 +21,8 @@ positions.each do |position|
           "name": "scraping manpower_can",
           "stealth": true,  
         },
-        no_url_encode: true,
-        http2: true,
+        # no_url_encode: true,
+        # http2: true,
     }
 end
 
@@ -40,7 +40,7 @@ pages << {
   # url: "#{base_url}#{resource_pagination_url}",
   url: 'https://www.manpower.ca/ManpowerCanada/search-jobs?txtJobType=&txtLocation=&txtLatitude=&txtLongitude=&source=',
   page_type: 'job_list',
-  fetch_type: "browser",
+  # fetch_type: "browser",
   method: 'POST',
   headers: {
     # 'Accept' => '*/*',
@@ -67,8 +67,8 @@ pages << {
     #   "timeout": 3000
     # }
   },
-  no_url_encode: true,
-  http2: true,
+  # no_url_encode: true,
+  # http2: true,
 }
 
 # or all at once
@@ -97,20 +97,6 @@ pages << {
 #       }
 #     }
 #   end
-# end
-
-
-# next_page = html.at_css('ul.pager li.hidden-xs a')
-# next_page.each do |link|
-#     pagination = link['onclick="listPagination(#{i})"']
-#     if pagination =~ /[0-9]/
-#         page_next = "https://www.manpower.ca/ManpowerCanada/search-jobs?txtJobType=&txtLocation=&txtLatitude=&txtLongitude=&source="
-#         pages << 	{
-#             page_type: "job_list",
-#             # url: url_next,
-#             # vars: {
-#             # },
-#         }
 # end
 
 # next_page = html.at_css('ul.pager li.hidden-xs a')
