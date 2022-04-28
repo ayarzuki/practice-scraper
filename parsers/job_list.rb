@@ -110,6 +110,26 @@ p content
 html = Nokogiri.HTML(content)
 vars = page['vars']
 
+# p vars
+if page['failed_response_status_code'] == 403
+  refetch_count = (vars['refetch_count'].nil?)? 1 : vars['refetch_count'] + 1
+  if refetch_count < 10
+    pages << {
+      page_type: "listings",
+      url: page['url'],
+      driver: {
+        name: "#{page['url']}_#{refetch_count}",
+      },
+      headers: page['headers'],
+      http2: true,
+      vars: vars.merge({refetch_count: refetch_count})
+    }
+  else
+    puts 'MAX REFETCH REACHED'
+  end
+end
+
+
 # p vars -> {"first_page"=>true, "industry"=>"Purchasing and Procurement"}
 
 url_list = html.css('li.list-group-item div.row div.col-lg-16')
