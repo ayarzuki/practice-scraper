@@ -1,9 +1,9 @@
 body = {
-    "txtJobType:" => "",
-    "txtLocation:" => "",
-    "txtLatitude:" => "",
-    "txtLongitude:" => "",
-    "source:" => "",
+    "txtJobType" => "",
+    "txtLocation" => "",
+    "txtLatitude" => "",
+    "txtLongitude" => "",
+    "source" => "",
 }
 
 pages << {
