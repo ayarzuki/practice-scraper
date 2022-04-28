@@ -111,10 +111,12 @@ url_category = {
     "Human Resources and Personnel" => "https://www.manpower.ca/ManpowerCanada/jobs?categoryID=Human%20Resources%20and%20Personnel",
 }
 
-url.each do |key, value|
+url_category.each do |key, value|
     pages << {
         page_type: 'job_list',
         method: "GET",
+        force_fetch: true,
+        fetch_type: "browser",
         headers: {
             ":authority" => "www.manpower.ca",
             ":method" => "GET",
@@ -132,7 +134,8 @@ url.each do |key, value|
         url: value,
         vars: {
             industry: key,
-            first_page: true,
+            url: value
         },
+        cookie: 'G_ENABLED_IDPS=google; hubspotutk=cfb4162b3aeaf6be0439ff8164d9474b; _ga=GA1.2.484422288.1648474523; UqZBpD3n3iPIDwJU=v1bFlJg8achqM; s_cc=true; __hssrc=1; JSESSIONID=0000x1yN_5EXPkvJ1eD0TRjVd-d:1dovhd2gq; s_nr=1651162896146; s_vnum=1653752038895&vn=2; s_invisit=true; __hstc=32730849.cfb4162b3aeaf6be0439ff8164d9474b.1647879910303.1651160042618.1651165828256.43; s_sq=[[B]]; G_ENABLED_IDPS=google; com.ibm.wps.state.preprocessors.locale.LanguageCookie=en_CA; _gid=GA1.2.679138354.1651167502; USERPREFS={"location":"","industrySector":"","latitude":"","longitude":""}; __hssc=32730849.17.1651165828256',
     }
 end

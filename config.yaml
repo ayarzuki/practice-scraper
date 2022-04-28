@@ -1,13 +1,13 @@
 seeder:
   file: ./seeder/seeder.rb
-  disabled: true
+  disabled: false
 parsers:
   - file: ./parsers/job_list.rb
     page_type: job_list
-    disabled: true
+    disabled: false
   - file: ./parsers/job_detail.rb
     page_type: job_detail
-    disabled: true
+    disabled: false
 exporters:
   - file: ./exporters/job_listing10_json.yaml
     disabled: true

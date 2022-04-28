@@ -105,3 +105,26 @@
 #   # no_url_encode: true,
 #   # http2: true,
 # }
+p content
+### Go to job details page
+html = Nokogiri.HTML(content)
+vars = page['vars']
+
+# p vars -> {"first_page"=>true, "industry"=>"Purchasing and Procurement"}
+
+url_list = html.css('li.list-group-item div.row div.col-lg-16')
+
+url_list.each do |job|
+  url = job.at_css('a').attr('href')
+  if url
+    pages << {
+      url: url,
+      page_type: 'job_detail',
+      method: 'GET',
+      force_fetch: true,
+      vars: {
+        industry: vars['industry']
+      },
+    }
+  end
+end
