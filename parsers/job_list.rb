@@ -1,16 +1,45 @@
-require "json"
+# require 'json'
 
-# This time we parse the JSON response
-json = JSON.parse(content)
-rank = 1
-page_num = page["vars"]["page_num"]
+# p content
 
-p json
+# p page
+
+# json = JSON.parse(page["url"])
+
+# p json
+
+# # This time we parse the JSON response
+# # json = JSON.parse(content)
+# rank = 1
+# page_num = page["vars"]["page_num"]
+
+# # p json
 
 # p page_num
 
+# p page
+# p page_num
+
+input = (1..54).step(1)
+
+input.each do |scroll_page_number|
+    pages<<{
+        url: "https://www.manpower.ca/ManpowerCanada/search-jobs/!ut/p/z1/04_Sj9CPykssy0xPLMnMz0vMAfIjo8ziTfw9zDw9nA18LFyDjAwczTwDjYw9jIydLY30w8EKDHAARwP9KEL6o8BK8JhQkBthkO6oqAgAqa_nhQ!!/p0/IZ7_4OH6IHC0L8E4D0AM5UO1B130G5=CZ6_4OH6IHC0L8ER20A6IQ23H23C92=NJresourcepaginationAction=/",
+        page_type: 'job_next',
+        method: "POST",
+        vars:{
+            page_num: 1
+        },
+        cookie: "G_ENABLED_IDPS=google; hubspotutk=cfb4162b3aeaf6be0439ff8164d9474b; _ga=GA1.2.484422288.1648474523; UqZBpD3n3iPIDwJU=v1bFlJg8achqM; s_cc=true; s_vnum=1653752038895&vn=1; s_invisit=true; __hstc=32730849.cfb4162b3aeaf6be0439ff8164d9474b.1647879910303.1649771875857.1651160042618.42; __hssrc=1; JSESSIONID=0000x1yN_5EXPkvJ1eD0TRjVd-d:1dovhd2gq; __hssc=32730849.9.1651160042618; s_nr=1651162896146; s_sq=mpdtprodcandidate=%26pid%3DJob%2520Search%26pidt%3D1%26oid%3Dfunctionanonymous%2528e%2529%257Bvars%253Ds_c_il%255B0%255D%252Cb%253Ds.eh%2528this%252C%2522onclick%2522%2529%253Bs.lnk%253Ds.co%2528this%2529%253Bs.t%2528%2529%253Bs.lnk%253D0%253Bif%2528b%2529retur%26oidt%3D2%26ot%3DA",
+        headers: headers,
+        body: URI.encode_www_form({
+            "x" => "#{scroll_page_number}"
+        })
+    }
+end
 
 # html = Nokogiri.HTML(content)
+# p html
 # vars = page['vars']
 
 # positions = html.css('div.row-container')
