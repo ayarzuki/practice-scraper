@@ -129,8 +129,37 @@ vars = page['vars']
 #   end
 # end
 
-
 # p vars -> {"first_page"=>true, "industry"=>"Purchasing and Procurement"}
+
+### Pagination
+next_page_num = html.at_css('li.next').inner_html
+re_url = next_page_num.gsub(/(<a href=\")(.*)(\")(.*)/, '\2')
+# p next_page_num
+# p re_url
+# p ("\n")
+# # regex (<a href=\")(.*)(\")(.*)
+url1 = "https://www.manpower.ca/ManpowerCanada/jobs/!ut/p/z1/hZDBTsMwDIZfpXsAZnddx66hRWRoUKCbWHKprGJVRW1SNd0Eb08yLlzYLB_8__r9WTJoOIA2dGobmlprqPNa6VW1LORqIzPcru-XOYqndF_Ed3GCGMP7OYD_lEDQ1_b1OXKBULKpMgHKX7qtHsUik1jgtkhl6lG5fN3vysQ7UAbUJ53oaz7Ycep4mpMDhcEeqOFnC2oRRE0TN3b83rU-BEoeezLRGzt7HGt2EZmP6IVHZ43hLuSpDt8A5dg5P4hf-Qe0ya9Rhv6ANw_9OgktZrMfWPW1Hg!!/"
+
+# url = url1 + re_url
+
+# p url
+
+# p page["vars"]["industry"]
+
+if next_page_num
+  pages << {
+      page_type: 'job_list',
+      method: "GET",
+      body: URI.encode_www_form({
+          "categoryID" => page['vars']['industry'],
+      }),
+      headers: page['headers'],
+      url: url1 + re_url,
+      vars: {
+          industry: vars['industry'],
+      }
+  }
+end
 
 url_list = html.css('li.list-group-item div.row div.col-lg-16')
 
