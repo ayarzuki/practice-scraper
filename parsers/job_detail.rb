@@ -10,7 +10,7 @@ html = Nokogiri.HTML(content)
 title = html.css("div.jobTitleDesc h1").text.strip
 
 ### extract description
-description = html.at_css("div.job-description p").text.strip.gsub(/[\n\r]/, "")
+description = html.at_css("div.job-description p").text.strip.gsub(/[\n\r]/, "") rescue nil
 
 ### Generate Regex for Industry
 industries_map = {
@@ -105,10 +105,10 @@ industries_map = {
 }
 
 ### extract raw_industry
-raw_industry =  html.at_css("div.industry-type p.sub-heading-desc span").text.strip
+raw_industry =  html.at_css("div.industry-type p.sub-heading-desc span").text.strip rescue nil
 # record['raw_industry'] = raw_industry
 # p raw_industry
-industry = industries_map[raw_industry].first
+industry = industries_map[raw_industry].first rescue nil
 #record['industry'] = industry
 # p industry
 
@@ -178,11 +178,11 @@ end
 currency = generate_currency(rate)
 
 ###extract city
-city = html.css("div.sub-heading p.sub-heading-desc span")[1].text.strip
+city = html.css("div.sub-heading p.sub-heading-desc span")[1].text.strip rescue nil
 
 ### Generate State
 # record['state'] = nil
-state_parse = html.at_css("div.branchInfo p.sub-heading-desc span.jdCityDetails").text
+state_parse = html.at_css("div.branchInfo p.sub-heading-desc span.jdCityDetails").text rescue nil
 
 def generate_state(str)
     input1 = str.match(/.[A-Z]{2}(?<![A-Z]{3})(?![A-Z])./)
@@ -254,12 +254,12 @@ states_map = {
 }
 
 
-state_parse = generate_state(state_parse) 
-state = states_map[state_parse]
+state_parse = generate_state(state_parse) rescue nil
+state = states_map[state_parse] rescue nil
 
 ### Generate Country
 # record['country'] = "United States"
-country_parse = html.at_css(".advertID p.sub-heading-desc").text.strip
+country_parse = html.at_css(".advertID p.sub-heading-desc").text.strip rescue nil
 
 def generate_country(country_parse)
   country1 = country_parse.match(/[A-Z]{3}(?<![A-Z]{4})(?![A-Z])/)
@@ -274,13 +274,13 @@ def generate_country(country_parse)
   end
 end
 ### Extract Country
-country = generate_country(country_parse)
+country = generate_country(country_parse) rescue nil
 
 ### Job url
 job_url = page["url"]
 
 ### Extract Date Posted
-date_posted = html.css("p.posted-date-text span")[1].text.strip
+date_posted = html.css("p.posted-date-text span")[1].text.strip  rescue nil
 date_posted = Date.parse(date_posted)
 
 ### Extract Raw_Rate

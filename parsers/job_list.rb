@@ -105,29 +105,29 @@
 #   # no_url_encode: true,
 #   # http2: true,
 # }
-p content
+# p content
 ### Go to job details page
 html = Nokogiri.HTML(content)
 vars = page['vars']
 
 # p vars
-if page['failed_response_status_code'] == 403
-  refetch_count = (vars['refetch_count'].nil?)? 1 : vars['refetch_count'] + 1
-  if refetch_count < 10
-    pages << {
-      page_type: "job_list",
-      url: page['url'],
-      driver: {
-        name: "#{page['url']}_#{refetch_count}",
-      },
-      headers: page['headers'],
-      http2: true,
-      vars: vars.merge({refetch_count: refetch_count})
-    }
-  else
-    puts 'MAX REFETCH REACHED'
-  end
-end
+# if page['failed_response_status_code'] == 403
+#   refetch_count = (vars['refetch_count'].nil?)? 1 : vars['refetch_count'] + 1
+#   if refetch_count < 10
+#     pages << {
+#       page_type: "job_list",
+#       url: page['url'],
+#       driver: {
+#         name: "#{page['url']}_#{refetch_count}",
+#       },
+#       headers: page['headers'],
+#       http2: true,
+#       vars: vars.merge({refetch_count: refetch_count})
+#     }
+#   else
+#     puts 'MAX REFETCH REACHED'
+#   end
+# end
 
 
 # p vars -> {"first_page"=>true, "industry"=>"Purchasing and Procurement"}
@@ -138,7 +138,7 @@ url_list.each do |job|
   url = job.at_css('a').attr('href')
   if url
     pages << {
-      url: "manpower.ca" + url,
+      url: "https://manpower.ca" + url,
       page_type: 'job_detail',
       method: 'GET',
       force_fetch: true,
