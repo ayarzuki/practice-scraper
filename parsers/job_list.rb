@@ -133,7 +133,7 @@ vars = page['vars']
 
 ### Pagination
 next_page_num = html.at_css('li.next').inner_html rescue nil
-re_url = next_page_num.gsub(/(<a href=\")(.*)(\")(.*)/, '\2')
+re_url = next_page_num.gsub(/(<a href=\")(.*)(\")(.*)/, '\2') rescue nil
 # p next_page_num
 # p re_url
 # p ("\n")
