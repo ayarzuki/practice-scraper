@@ -2,3 +2,4 @@ exporter_name: job_listing_json
 exporter_type: json
 collection: final_output
 write_mode: pretty_array
+start_on_job_done: true

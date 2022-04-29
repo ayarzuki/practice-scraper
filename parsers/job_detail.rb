@@ -213,6 +213,7 @@ states_map = {
 	"WV" => "West Virginia",
 	"WI" => "Wisconsin",
 	"WY" => "Wyoming"
+  "NS" => "Nova Scotia",
 }
 
 
