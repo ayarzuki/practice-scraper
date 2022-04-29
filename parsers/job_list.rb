@@ -132,7 +132,7 @@ vars = page['vars']
 # p vars -> {"first_page"=>true, "industry"=>"Purchasing and Procurement"}
 
 ### Pagination
-next_page_num = html.at_css('li.next').inner_html
+next_page_num = html.at_css('li.next').inner_html rescue nil
 re_url = next_page_num.gsub(/(<a href=\")(.*)(\")(.*)/, '\2')
 # p next_page_num
 # p re_url
